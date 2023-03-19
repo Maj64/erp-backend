@@ -15,12 +15,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Order.init({
-    item_id: DataTypes.UUID,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+    },
     order_id: DataTypes.UUID,
     product_id: DataTypes.UUID,
     quantity: DataTypes.INTEGER,
     unit_price: DataTypes.DECIMAL(10, 2),
     total_price: DataTypes.DECIMAL(10, 2),
+    removed: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Orderitem',

@@ -15,13 +15,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Order.init({
-    order_id: DataTypes.UUID,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+    },
     order_date: DataTypes.DATE,
     customer_id: DataTypes.UUID,
     order_total: DataTypes.DECIMAL(10, 2),
     payment_status: DataTypes.STRING(20),
     payment_date: DataTypes.DATE,
     order_status: DataTypes.STRING(20),
+    removed: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Order',

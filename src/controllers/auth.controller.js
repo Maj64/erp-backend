@@ -1,20 +1,24 @@
 const db = require("../models/models");
+const User = db.User
 // const config = require("../config/auth.config");
 
 const Op = db.Sequelize.Op;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require('uuid');
+require('dotenv').config();
 
 exports.signup = async (req, res) => {
   // Save User to Database
   try {
     const user = await db.User.create({
+      id: uuidv4(),
       username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
     });
-    if (result) res.send({ message: "User registered successfully!" });
+    if (user) res.send({ message: "User registered successfully!" });
 
     // if (req.body.roles) {
     //   const roles = await Role.findAll({
@@ -59,8 +63,8 @@ exports.signin = async (req, res) => {
         message: "Invalid Password!",
       });
     }
-
-    const token = jwt.sign({ user_id: user.user_id }, process.env.SECRET_KEY, {
+    
+    const token = jwt.sign({ user_id: user.id }, process.env.SECRET_KEY, {
       expiresIn: 86400, // 24 hours
     });
 
@@ -70,12 +74,10 @@ exports.signin = async (req, res) => {
     //   authorities.push("ROLE_" + roles[i].name.toUpperCase());
     // }
 
-    req.session.token = token;
 
     return res.status(200).send({
-      user_id: user.user_id,
-      username: user.username,
-      email: user.email,
+      id: user.id,
+      accessToken: token,
       // roles: authorities,
     });
   } catch (error) {

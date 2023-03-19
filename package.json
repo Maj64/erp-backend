@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ./node_modules/.bin/babel-node src/server.js"
+    "start": "nodemon --exec ./node_modules/.bin/babel-node src/server.js --  --inspect"
   },
   "keywords": [
     "crm",
@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.18.2",
+    "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.2.0",
     "sequelize": "^6.29.3",

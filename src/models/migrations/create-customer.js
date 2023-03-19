@@ -3,8 +3,8 @@ const { DataTypes } = require('sequelize');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Customer', {
-      customer_id: {
+    await queryInterface.createTable('Customers', {
+      id: {
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -30,6 +30,9 @@ module.exports = {
       shipping_address: {
         type: Sequelize.STRING(255)
       },
+      removed: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -41,6 +44,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Customer');
+    await queryInterface.dropTable('Customers');
   }
 };
